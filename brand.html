@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quorum — Brand Kit</title>
+<link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+<style>
+  :root {
+    --bg: #FAF7F2; --paper: #FFF; --ink: #1B1B1B; --ink-soft: #555552;
+    --line: #E6E0D4; --accent: #2F5D4A; --accent-soft: #E9EFEA;
+    --warm: #C87E4F; --warm-soft: #F6ECE3;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, sans-serif;
+    font-size: 18px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1 { font-size: clamp(36px, 6vw, 60px); letter-spacing: -0.03em; font-weight: 600; margin: 0 0 16px; }
+  h2 { font-size: 28px; letter-spacing: -0.02em; font-weight: 600; margin: 0 0 16px; }
+  h3 { font-size: 18px; font-weight: 600; margin: 0 0 8px; }
+  p { margin: 0 0 1em; color: var(--ink-soft); }
+
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 0 28px; }
+  nav { padding: 20px 0; border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; justify-content: space-between; align-items: center; }
+  nav a { color: var(--ink-soft); text-decoration: none; font-size: 15px; }
+  nav a:hover { color: var(--ink); }
+
+  header { padding: 80px 0 60px; }
+  header .eyebrow { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 20px; display: inline-block; padding: 8px 16px; background: var(--accent-soft); border-radius: 999px; }
+
+  section { padding: 48px 0; border-top: 1px solid var(--line); }
+  .grid { display: grid; gap: 20px; grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 760px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .swatch {
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: 14px; padding: 20px; overflow: hidden;
+  }
+  .swatch .color { height: 80px; border-radius: 10px; margin-bottom: 14px; border: 1px solid rgba(0,0,0,0.05); }
+  .swatch .name { font-weight: 600; font-size: 15px; margin-bottom: 2px; }
+  .swatch .hex { font-family: "SF Mono", ui-monospace, Menlo, monospace; font-size: 13px; color: var(--ink-soft); }
+  .swatch .role { font-size: 13px; color: var(--ink-soft); margin-top: 8px; }
+
+  .type-sample {
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: 14px; padding: 32px; margin-bottom: 16px;
+  }
+  .type-sample .meta { font-size: 13px; color: var(--ink-soft); font-family: "SF Mono", ui-monospace, Menlo, monospace; margin-bottom: 8px; }
+
+  .logo-card {
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: 14px; padding: 40px; text-align: center;
+    margin-bottom: 16px;
+  }
+  .logo-card.dark { background: var(--ink); }
+  .logo-card.sage { background: var(--accent); }
+
+  .voice {
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: 14px; padding: 24px; margin-bottom: 12px;
+  }
+  .voice .lbl { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; margin-bottom: 8px; }
+  .voice.do .lbl { color: var(--accent); }
+  .voice.dont .lbl { color: var(--warm); }
+  .voice blockquote { margin: 0; font-size: 20px; line-height: 1.45; color: var(--ink); letter-spacing: -0.01em; }
+
+  .principle { padding: 20px 0; border-bottom: 1px solid var(--line); }
+  .principle:last-child { border-bottom: 0; }
+  .principle h3 { margin-bottom: 4px; }
+
+  footer { padding: 40px 0; text-align: center; color: var(--ink-soft); font-size: 14px; border-top: 1px solid var(--line); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="./index.html" style="display: flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 600;">
+      <img src="./assets/favicon.svg" width="28" height="28" alt="" />
+      <span>Quorum</span>
+    </a>
+    <div style="display: flex; gap: 24px;">
+      <a href="./index.html">Pitch</a>
+      <a href="./demo/">Demo</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <span class="eyebrow">Brand kit · v0.1</span>
+    <h1>The quieter the brand, the louder the trust.</h1>
+    <p style="max-width: 58ch; font-size: 21px; line-height: 1.5;">Quorum is a calm tool for a loud job. Every brand decision — color, type, voice, silence — should reinforce that a neighbor, not a corporation, is on the other end of the screen.</p>
+  </div>
+</header>
+
+<!-- LOGO -->
+<section>
+  <div class="wrap">
+    <h2>Logo</h2>
+    <p>The mark is a simple house silhouette with a small warm accent dot — a quorum of one in a gathering of many. Use the wordmark in product contexts; use the mark alone for app icons, favicons, and tight spaces.</p>
+
+    <div class="grid" style="grid-template-columns: 1fr 1fr; margin-top: 24px;">
+      <div class="logo-card">
+        <img src="./assets/logo-wordmark.svg" alt="Quorum wordmark" width="220" />
+        <p style="margin: 16px 0 0; font-size: 13px; color: var(--ink-soft);">Wordmark on cream</p>
+      </div>
+      <div class="logo-card dark">
+        <img src="./assets/logo-mark.svg" alt="Quorum mark" width="80" />
+        <p style="margin: 16px 0 0; font-size: 13px; color: rgba(255,255,255,0.7);">Mark on ink</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLOR -->
+<section>
+  <div class="wrap">
+    <h2>Color</h2>
+    <p>One deep sage does the heavy lifting. Cream warms the whole system. Terracotta is a rare, intentional accent — never used twice on the same screen.</p>
+    <div class="grid" style="margin-top: 24px;">
+      <div class="swatch">
+        <div class="color" style="background: #FAF7F2;"></div>
+        <div class="name">Paper Cream</div>
+        <div class="hex">#FAF7F2</div>
+        <div class="role">App background</div>
+      </div>
+      <div class="swatch">
+        <div class="color" style="background: #2F5D4A;"></div>
+        <div class="name">Deep Sage</div>
+        <div class="hex">#2F5D4A</div>
+        <div class="role">Primary accent, buttons</div>
+      </div>
+      <div class="swatch">
+        <div class="color" style="background: #C87E4F;"></div>
+        <div class="name">Warm Clay</div>
+        <div class="hex">#C87E4F</div>
+        <div class="role">Secondary, used sparingly</div>
+      </div>
+      <div class="swatch">
+        <div class="color" style="background: #1B1B1B;"></div>
+        <div class="name">Ink</div>
+        <div class="hex">#1B1B1B</div>
+        <div class="role">Headlines &amp; body text</div>
+      </div>
+      <div class="swatch">
+        <div class="color" style="background: #E9EFEA;"></div>
+        <div class="name">Sage Mist</div>
+        <div class="hex">#E9EFEA</div>
+        <div class="role">Soft fills, pills</div>
+      </div>
+      <div class="swatch">
+        <div class="color" style="background: #F6ECE3;"></div>
+        <div class="name">Clay Mist</div>
+        <div class="hex">#F6ECE3</div>
+        <div class="role">Soft warm fills</div>
+      </div>
+      <div class="swatch">
+        <div class="color" style="background: #E6E0D4;"></div>
+        <div class="name">Line</div>
+        <div class="hex">#E6E0D4</div>
+        <div class="role">Borders, dividers</div>
+      </div>
+      <div class="swatch">
+        <div class="color" style="background: #555552;"></div>
+        <div class="name">Ink Soft</div>
+        <div class="hex">#555552</div>
+        <div class="role">Secondary text</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TYPOGRAPHY -->
+<section>
+  <div class="wrap">
+    <h2>Typography</h2>
+    <p>System sans-serif by default (SF Pro on Apple, Segoe UI on Windows). No custom fonts — performance is calm, too. Body text is 19–20px so it reads easily at arm's length, for every reader.</p>
+
+    <div class="type-sample">
+      <div class="meta">Display · 64px · weight 600 · tracking -0.03em</div>
+      <div style="font-size: 64px; font-weight: 600; letter-spacing: -0.03em; line-height: 1.05;">Feels like a neighbor.</div>
+    </div>
+    <div class="type-sample">
+      <div class="meta">Heading 2 · 44px · weight 600 · tracking -0.02em</div>
+      <div style="font-size: 44px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.15;">One calm place for an HOA.</div>
+    </div>
+    <div class="type-sample">
+      <div class="meta">Lede · 22px · weight 400 · color ink-soft</div>
+      <div style="font-size: 22px; color: var(--ink-soft); line-height: 1.55;">Quorum replaces the clutter of Gmail threads, spreadsheets, and paper checks with a single calm place designed for real people.</div>
+    </div>
+    <div class="type-sample">
+      <div class="meta">Body · 19px · weight 400 · line-height 1.65</div>
+      <div style="font-size: 19px; line-height: 1.65;">Body text stays generous. The software is for board members with bifocals and residents with their phones in the grocery checkout line. Don't make them squint.</div>
+    </div>
+  </div>
+</section>
+
+<!-- VOICE -->
+<section>
+  <div class="wrap">
+    <h2>Voice</h2>
+    <p>Warm, plain, literate. Never salesy. Never corporate. Write the way you'd actually speak to a retired teacher who's volunteering to run the community.</p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px;">
+      <div class="voice do">
+        <div class="lbl">Do</div>
+        <blockquote>"Good morning, Sarah. Your balance is zero. You're all caught up."</blockquote>
+      </div>
+      <div class="voice dont">
+        <div class="lbl">Don't</div>
+        <blockquote>"Account status: CURRENT. Outstanding balance: $0.00 USD."</blockquote>
+      </div>
+      <div class="voice do">
+        <div class="lbl">Do</div>
+        <blockquote>"Sent to 412 residents · switch to Resident to see it."</blockquote>
+      </div>
+      <div class="voice dont">
+        <div class="lbl">Don't</div>
+        <blockquote>"Communication successfully transmitted. Delivery log available in Admin &gt; Reports."</blockquote>
+      </div>
+      <div class="voice do">
+        <div class="lbl">Do</div>
+        <blockquote>"You're all caught up. Next dues due May 1."</blockquote>
+      </div>
+      <div class="voice dont">
+        <div class="lbl">Don't</div>
+        <blockquote>"There are currently no outstanding invoices on your account."</blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRINCIPLES -->
+<section>
+  <div class="wrap">
+    <h2>Design principles</h2>
+
+    <div class="principle">
+      <h3>1. Calm is a feature.</h3>
+      <p>Every pixel earns its place. White space is a design element, not a waste. If it isn't helping someone do something, it shouldn't be on the screen.</p>
+    </div>
+    <div class="principle">
+      <h3>2. Write for a neighbor, not a user.</h3>
+      <p>No "utilize," no "assessment cycle," no "please be advised." Say what you mean like a person would say it at the mailbox.</p>
+    </div>
+    <div class="principle">
+      <h3>3. The resident is the hero.</h3>
+      <p>The board exists to serve residents. The software exists to serve the board. Every feature decision answers: does this make Sarah's life easier?</p>
+    </div>
+    <div class="principle">
+      <h3>4. One action per screen.</h3>
+      <p>When a resident opens a page, they should know the single most important thing they could do there, without reading anything. Then the rest is context.</p>
+    </div>
+    <div class="principle">
+      <h3>5. The board gets audited by the state. We get audited by the board.</h3>
+      <p>Every action leaves a trail. Every vote is timestamped. Every dollar is accounted for. Trust is built quietly.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Quorum brand kit · v0.1 · living document
+</footer>
+
+</body>
+</html>
