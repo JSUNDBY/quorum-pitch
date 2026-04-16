@@ -1,0 +1,1440 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#FAF7F2" />
+<title>Quorum — HOA software that feels like it belongs to the neighborhood</title>
+<meta name="description" content="One calm place for dues, meetings, announcements, and everything in between. Designed for real people, not property managers with IT degrees." />
+<style>
+  :root {
+    --bg: #FAF7F2;
+    --bg-soft: #F3EEE4;
+    --paper: #FFFFFF;
+    --ink: #1B1B1B;
+    --ink-soft: #555552;
+    --ink-softer: #8A8580;
+    --line: #E6E0D4;
+    --line-soft: #EFEBE1;
+    --accent: #2F5D4A;
+    --accent-hover: #254A3B;
+    --accent-soft: #E9EFEA;
+    --accent-softer: #F3F6F3;
+    --warm: #C87E4F;
+    --warm-soft: #F6ECE3;
+    --amber: #D4A64A;
+    --green: #4F9D6B;
+    --red: #C8604F;
+    --shadow-1: 0 1px 2px rgba(0,0,0,0.04), 0 2px 8px rgba(30,30,30,0.04);
+    --shadow-2: 0 1px 3px rgba(0,0,0,0.04), 0 10px 28px rgba(30,30,30,0.07);
+    --shadow-3: 0 2px 6px rgba(0,0,0,0.04), 0 28px 64px rgba(30,30,30,0.10);
+    --radius: 16px;
+    --radius-lg: 22px;
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 19px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 28px; }
+  .wrap-narrow { max-width: 780px; margin: 0 auto; padding: 0 28px; }
+
+  h1, h2, h3, h4 {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif;
+    letter-spacing: -0.022em;
+    line-height: 1.12;
+    color: var(--ink);
+    margin: 0;
+    font-weight: 600;
+  }
+  h1 { font-size: clamp(40px, 7vw, 76px); letter-spacing: -0.032em; line-height: 1.05; }
+  h2 { font-size: clamp(30px, 4.5vw, 48px); }
+  h3 { font-size: clamp(22px, 3vw, 30px); }
+  h4 { font-size: 20px; font-weight: 600; }
+
+  p { margin: 0 0 1em 0; }
+  p.lede { font-size: clamp(18px, 2.3vw, 23px); line-height: 1.55; color: var(--ink-soft); }
+
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(47,93,74,0.25); }
+  a:hover { border-bottom-color: var(--accent); }
+
+  /* ---------- NAV ---------- */
+  nav.top {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: saturate(160%) blur(14px);
+    -webkit-backdrop-filter: saturate(160%) blur(14px);
+    background: rgba(250, 247, 242, 0.88);
+  }
+  nav.top .wrap { display: flex; align-items: center; justify-content: space-between; }
+  .brand { display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 20px; letter-spacing: -0.01em; color: var(--ink); border: 0; }
+  .brand-mark {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: var(--accent);
+    display: grid; place-items: center;
+    box-shadow: inset 0 -2px 0 rgba(0,0,0,0.12);
+  }
+  .brand-mark svg { width: 18px; height: 18px; }
+  nav.top .links { display: flex; gap: 28px; font-size: 16px; color: var(--ink-soft); align-items: center; }
+  nav.top .links a { color: var(--ink-soft); border: 0; transition: color .15s; }
+  nav.top .links a:hover { color: var(--ink); }
+  .nav-cta { background: var(--ink); color: #fff !important; padding: 10px 18px; border-radius: 10px; font-size: 15px !important; font-weight: 500; border: 0 !important; }
+  .nav-cta:hover { background: #000; }
+  @media (max-width: 760px) {
+    nav.top .links a:not(.nav-cta) { display: none; }
+    nav.top .links { gap: 0; }
+  }
+
+  /* ---------- HERO ---------- */
+  section.hero {
+    padding: clamp(64px, 10vw, 130px) 0 clamp(60px, 9vw, 110px) 0;
+    position: relative;
+    overflow: hidden;
+  }
+  section.hero::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 900px 500px at 85% 0%, var(--accent-softer) 0%, transparent 60%),
+      radial-gradient(ellipse 700px 400px at 5% 100%, var(--warm-soft) 0%, transparent 50%);
+    pointer-events: none; z-index: 0; opacity: .9;
+  }
+  section.hero .wrap { position: relative; z-index: 1; }
+  .hero .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); font-weight: 600;
+    padding: 8px 16px; border-radius: 999px;
+    background: var(--accent-soft);
+    margin-bottom: 28px;
+  }
+  .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); position: relative; }
+  .pulse::after {
+    content: ""; position: absolute; inset: -4px; border-radius: 50%;
+    background: var(--accent); opacity: .4;
+    animation: ripple 2s ease-out infinite;
+  }
+  @keyframes ripple { 0% { transform: scale(0.5); opacity: .5; } 100% { transform: scale(2.2); opacity: 0; } }
+
+  .hero h1 { max-width: 16ch; margin-bottom: 24px; }
+  .hero p.lede { max-width: 58ch; }
+  .hero .cta { margin-top: 36px; display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    font-size: 17px; font-weight: 500;
+    padding: 15px 26px; border-radius: 12px;
+    border: 1px solid transparent;
+    cursor: pointer; transition: transform .12s ease, background .15s, box-shadow .15s, color .15s;
+    font-family: inherit;
+    min-height: 52px;
+    text-align: center;
+  }
+  .btn-primary { background: var(--accent); color: #fff; border: 0; box-shadow: 0 1px 0 rgba(0,0,0,0.08), 0 6px 20px rgba(47,93,74,0.18); }
+  .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 1px 0 rgba(0,0,0,0.1), 0 10px 26px rgba(47,93,74,0.25); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+  .btn-ghost:hover { background: #fff; border-color: var(--ink); }
+
+  /* ---------- SECTIONS ---------- */
+  section { padding: clamp(64px, 9vw, 110px) 0; }
+  section.alt { background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .section-eyebrow {
+    font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); font-weight: 600;
+    margin-bottom: 18px;
+  }
+  .section-head { max-width: 720px; margin-bottom: clamp(40px, 6vw, 72px); }
+  .section-head h2 { margin-bottom: 18px; }
+  .section-head p { font-size: clamp(17px, 2vw, 21px); color: var(--ink-soft); line-height: 1.55; }
+
+  /* ---------- PROBLEM ---------- */
+  .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  @media (max-width: 860px) { .problem-grid { grid-template-columns: 1fr; } }
+  .problem-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 36px;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .problem-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
+  .problem-card .stat {
+    font-size: clamp(44px, 5vw, 56px); font-weight: 600; color: var(--accent);
+    letter-spacing: -0.03em; line-height: 1; margin-bottom: 16px;
+  }
+  .problem-card h4 { margin-bottom: 10px; }
+  .problem-card p { color: var(--ink-soft); margin: 0; font-size: 17px; }
+
+  /* ---------- PRODUCT TOUR ---------- */
+  .role-tabs-wrap {
+    margin-bottom: 40px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin-left: -28px; margin-right: -28px;
+    padding: 4px 28px;
+  }
+  .role-tabs-wrap::-webkit-scrollbar { display: none; }
+  .role-tabs {
+    display: inline-flex; gap: 6px;
+    background: var(--paper); border: 1px solid var(--line);
+    padding: 6px; border-radius: 14px;
+    white-space: nowrap;
+  }
+  .role-tab {
+    padding: 12px 20px; border-radius: 10px;
+    font-size: 15px; font-weight: 500; color: var(--ink-soft);
+    cursor: pointer; border: 0; background: transparent;
+    font-family: inherit;
+    transition: all .18s ease;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .role-tab:hover { color: var(--ink); }
+  .role-tab.active { background: var(--accent); color: #fff; box-shadow: 0 1px 0 rgba(0,0,0,0.08); }
+
+  .tour-panel { display: none; }
+  .tour-panel.active { display: block; animation: fadeIn .35s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .tour-layout { display: grid; grid-template-columns: 1fr 1.35fr; gap: 56px; align-items: start; }
+  @media (max-width: 960px) { .tour-layout { grid-template-columns: 1fr; gap: 32px; } }
+  .tour-copy h3 { margin-bottom: 14px; }
+  .tour-copy p { color: var(--ink-soft); font-size: 18px; margin-bottom: 18px; }
+  .tour-copy ul { list-style: none; padding: 0; margin: 20px 0 0 0; }
+  .tour-copy li {
+    padding: 14px 0; border-bottom: 1px solid var(--line);
+    font-size: 17px; color: var(--ink); display: flex; gap: 14px; align-items: flex-start;
+  }
+  .tour-copy li:last-child { border-bottom: 0; }
+  .tour-copy li .dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+    margin-top: 9px; flex-shrink: 0;
+  }
+
+  /* ---------- MOCKUP FRAMES ---------- */
+  .mockup {
+    background: var(--paper);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-3);
+    border: 1px solid var(--line);
+    overflow: hidden;
+    transition: transform .3s;
+  }
+  .mockup:hover { transform: translateY(-2px); }
+  .mockup-chrome {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; gap: 10px;
+    background: #FBF9F5;
+  }
+  .mockup-chrome .window-dots { display: flex; gap: 6px; }
+  .mockup-chrome .window-dots span { width: 10px; height: 10px; border-radius: 50%; background: #E4DED1; }
+  .mockup-chrome .url {
+    flex: 1; text-align: center; font-size: 13px; color: var(--ink-soft);
+    font-family: "SF Mono", ui-monospace, Menlo, monospace;
+    padding: 5px 12px; background: rgba(0,0,0,0.03); border-radius: 6px;
+    max-width: 360px; margin: 0 auto;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .mockup-body { padding: 28px; }
+  @media (max-width: 640px) { .mockup-body { padding: 20px; } }
+
+  /* resident screen */
+  .screen-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; padding-bottom: 18px; border-bottom: 1px solid var(--line); gap: 16px; }
+  .screen-header .hi { font-size: 20px; font-weight: 600; }
+  .screen-header .sub { font-size: 14px; color: var(--ink-soft); margin-top: 2px; }
+  .screen-header .right { text-align: right; flex-shrink: 0; }
+
+  .balance-card {
+    background: linear-gradient(135deg, var(--accent-soft) 0%, #E3ECE5 100%);
+    border-radius: var(--radius);
+    padding: 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap; gap: 14px;
+  }
+  .balance-card .label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+  .balance-card .amount { font-size: clamp(30px, 5vw, 36px); font-weight: 600; letter-spacing: -0.02em; }
+  .pill-btn {
+    background: var(--accent); color: #fff;
+    padding: 11px 20px; border-radius: 10px;
+    font-size: 15px; font-weight: 500;
+    border: 0; cursor: pointer; font-family: inherit;
+    transition: background .15s, transform .12s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .pill-btn:hover { background: var(--accent-hover); }
+  .pill-btn:active { transform: translateY(1px); }
+  .pill-btn.ghost { background: #fff; color: var(--ink); border: 1px solid var(--line); }
+  .pill-btn.ghost:hover { border-color: var(--ink); background: #FBF9F5; }
+
+  .history-drawer {
+    max-height: 0; overflow: hidden;
+    transition: max-height .35s ease, margin .35s ease;
+    margin: 0;
+  }
+  .history-drawer.open { max-height: 280px; margin-bottom: 16px; }
+  .history-drawer-inner {
+    background: #FBF9F5; border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 18px 22px;
+  }
+  .history-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 10px 0; border-bottom: 1px dashed var(--line); font-size: 15px;
+  }
+  .history-row:last-child { border-bottom: 0; }
+  .history-row .d { color: var(--ink-soft); }
+  .history-row .a { font-weight: 500; }
+  .history-row .a.pos { color: var(--green); }
+
+  .row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px; border: 1px solid var(--line); border-radius: 14px;
+    margin-bottom: 10px; background: #fff;
+    cursor: pointer;
+    transition: border-color .15s, background .15s, transform .12s;
+    flex-wrap: wrap;
+  }
+  .row:hover { border-color: var(--accent); background: var(--accent-softer); }
+  .row:active { transform: scale(0.995); }
+  .row .icon {
+    width: 40px; height: 40px; border-radius: 11px;
+    background: var(--warm-soft); color: var(--warm);
+    display: grid; place-items: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .row .icon.sage { background: var(--accent-soft); color: var(--accent); }
+  .row .body { flex: 1; min-width: 0; }
+  .row .title { font-weight: 500; font-size: 16px; }
+  .row .meta { font-size: 14px; color: var(--ink-soft); margin-top: 2px; }
+  .row .action {
+    font-size: 14px; color: var(--accent); font-weight: 500;
+    flex-shrink: 0;
+  }
+  .row.done .title { text-decoration: line-through; color: var(--ink-softer); }
+  .row.rsvpd .action { color: var(--green); }
+  .row.rsvpd .action::before { content: "✓ "; }
+
+  .expand-body {
+    max-height: 0; overflow: hidden; width: 100%;
+    transition: max-height .3s ease, margin .3s ease;
+    margin: 0;
+  }
+  .row.open { background: var(--accent-softer); border-color: var(--accent); }
+  .row.open .expand-body { max-height: 200px; margin-top: 12px; }
+  .expand-body p { font-size: 15px; color: var(--ink-soft); margin: 0; padding-left: 54px; }
+  @media (max-width: 520px) { .expand-body p { padding-left: 0; } }
+
+  /* board dashboard */
+  .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 22px; }
+  @media (max-width: 520px) { .kpi-grid { grid-template-columns: 1fr; } }
+  .kpi {
+    background: #FBF9F5; border: 1px solid var(--line);
+    border-radius: 14px; padding: 18px;
+  }
+  .kpi .label { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; }
+  .kpi .num { font-size: clamp(24px, 4vw, 28px); font-weight: 600; letter-spacing: -0.02em; margin-top: 4px; }
+  .kpi .trend { font-size: 13px; color: var(--accent); margin-top: 2px; }
+
+  .task-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+    transition: padding .15s;
+  }
+  .task-row:last-child { border-bottom: 0; }
+  .task-row:hover { padding-left: 6px; }
+  .task-row.done .t-title { text-decoration: line-through; color: var(--ink-softer); }
+  .task-row.done .t-meta { color: var(--green); font-weight: 500; }
+  .task-pill {
+    font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;
+    padding: 4px 9px; border-radius: 999px;
+    background: var(--warm-soft); color: var(--warm);
+    flex-shrink: 0;
+  }
+  .task-pill.sage { background: var(--accent-soft); color: var(--accent); }
+  .task-row .t-title { flex: 1; font-size: 15px; min-width: 0; }
+  .task-row .t-meta { font-size: 13px; color: var(--ink-soft); flex-shrink: 0; }
+
+  /* manager view */
+  .hoa-row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 0; border-bottom: 1px solid var(--line);
+    cursor: pointer;
+    transition: padding .15s;
+  }
+  .hoa-row:last-child { border-bottom: 0; }
+  .hoa-row:hover { padding-left: 6px; }
+  .status-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; position: relative; }
+  .status-dot::after {
+    content: ""; position: absolute; inset: -4px; border-radius: 50%;
+    background: inherit; opacity: .3; animation: ripple 2.5s ease-out infinite;
+  }
+  .status-dot.green { background: var(--green); }
+  .status-dot.amber { background: var(--amber); }
+  .status-dot.red { background: var(--red); }
+  .hoa-row .name { flex: 1; font-weight: 500; font-size: 16px; min-width: 0; }
+  .hoa-row .stat { font-size: 14px; color: var(--ink-soft); text-align: right; flex-shrink: 0; }
+
+  /* announcement composer */
+  .compose-field { margin-bottom: 16px; }
+  .compose-label { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; margin-bottom: 8px; }
+  .compose-input {
+    background: #FBF9F5; border: 1px solid var(--line);
+    border-radius: 10px; padding: 13px 15px; font-size: 16px; color: var(--ink);
+    transition: border-color .15s, background .15s;
+  }
+  .compose-input:hover { border-color: var(--ink-softer); }
+  .audience-chip {
+    display: inline-block; padding: 7px 13px;
+    background: var(--accent-soft); color: var(--accent);
+    border-radius: 999px; font-size: 13px; font-weight: 500;
+    margin-right: 6px; margin-bottom: 6px;
+  }
+  .audience-chip.add { background: #F1EDE4; color: var(--ink-soft); cursor: pointer; }
+  .channel-row {
+    display: flex; gap: 10px; margin-top: 4px; flex-wrap: wrap;
+  }
+  .channel {
+    flex: 1; min-width: 100px;
+    padding: 13px; border: 1px solid var(--line); border-radius: 10px;
+    display: flex; align-items: center; gap: 10px; background: #fff;
+    cursor: pointer; font-size: 15px; font-weight: 500;
+    transition: all .15s;
+  }
+  .channel:hover { border-color: var(--ink-softer); }
+  .channel.on { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+  .channel .check { width: 18px; height: 18px; border-radius: 5px; border: 1.5px solid var(--line); flex-shrink: 0; transition: all .15s; }
+  .channel.on .check { background: var(--accent); border-color: var(--accent); position: relative; }
+  .channel.on .check::after { content: ""; position: absolute; left: 4px; top: 1px; width: 5px; height: 10px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+
+  .send-btn {
+    background: var(--accent); color: #fff;
+    padding: 14px 22px; border-radius: 10px;
+    font-size: 15px; font-weight: 500;
+    border: 0; cursor: pointer; font-family: inherit;
+    transition: all .2s;
+    display: inline-flex; align-items: center; gap: 8px;
+    min-height: 44px;
+  }
+  .send-btn:hover { background: var(--accent-hover); }
+  .send-btn.sending { background: var(--ink-soft); pointer-events: none; }
+  .send-btn.sent { background: var(--green); pointer-events: none; }
+  .spinner {
+    width: 14px; height: 14px; border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff;
+    animation: spin .7s linear infinite; display: none;
+  }
+  .send-btn.sending .spinner { display: inline-block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ---------- TESTIMONIAL ---------- */
+  .testimonial {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: clamp(32px, 5vw, 56px);
+    max-width: 860px; margin: 0 auto;
+    position: relative;
+  }
+  .testimonial .quote-mark {
+    position: absolute; top: 24px; left: clamp(28px, 4vw, 48px);
+    font-family: Georgia, serif; font-size: 120px; line-height: 1;
+    color: var(--accent-soft); font-weight: 700;
+    pointer-events: none;
+  }
+  .testimonial blockquote {
+    margin: 0; font-size: clamp(20px, 2.6vw, 26px);
+    line-height: 1.5; letter-spacing: -0.01em;
+    color: var(--ink); position: relative; z-index: 1;
+  }
+  .testimonial cite {
+    display: block; margin-top: 24px;
+    font-size: 15px; color: var(--ink-soft); font-style: normal;
+  }
+  .testimonial cite strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- COMPARE ---------- */
+  .compare-table {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .compare-row {
+    display: grid; grid-template-columns: 2fr 1fr 1fr;
+    align-items: center;
+    padding: 20px clamp(20px, 3vw, 32px);
+    border-bottom: 1px solid var(--line);
+    gap: 16px;
+  }
+  .compare-row:last-child { border-bottom: 0; }
+  .compare-row.head {
+    background: #FBF9F5;
+    font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+    font-weight: 600; color: var(--ink-soft);
+  }
+  .compare-row .feat { font-size: 16px; }
+  .compare-cell { text-align: center; font-size: 15px; }
+  .compare-cell.us { color: var(--accent); font-weight: 500; }
+  .compare-cell.them { color: var(--ink-softer); }
+  @media (max-width: 600px) {
+    .compare-row { grid-template-columns: 1.5fr 1fr 1fr; padding: 16px; gap: 10px; }
+    .compare-row .feat { font-size: 14px; }
+    .compare-cell { font-size: 13px; }
+  }
+
+  /* ---------- DATA MODEL ---------- */
+  .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  @media (max-width: 900px) { .data-grid { grid-template-columns: 1fr; gap: 32px; } }
+
+  .cabinet {
+    background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-lg);
+    padding: clamp(24px, 4vw, 36px);
+  }
+  .cabinet .level { margin-bottom: 28px; }
+  .cabinet .level:last-child { margin-bottom: 0; }
+  .cabinet .level-label {
+    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-soft); font-weight: 600; margin-bottom: 12px;
+  }
+  .entity-pill {
+    display: inline-block; padding: 10px 18px;
+    background: var(--accent-soft); color: var(--accent);
+    border-radius: 12px; font-weight: 500; font-size: 15px;
+    margin: 0 6px 6px 0;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .entity-pill:hover { transform: translateY(-1px); box-shadow: var(--shadow-1); }
+  .entity-pill.warm { background: var(--warm-soft); color: var(--warm); }
+  .entity-pill.neutral { background: #F1EDE4; color: var(--ink); }
+
+  .rules { margin-top: 8px; }
+  .rule {
+    display: flex; gap: 18px; padding: 18px 0; border-bottom: 1px solid var(--line);
+  }
+  .rule:last-child { border-bottom: 0; }
+  .rule .n {
+    width: 34px; height: 34px; border-radius: 10px;
+    background: var(--accent); color: #fff;
+    display: grid; place-items: center; font-weight: 600;
+    flex-shrink: 0; font-size: 15px;
+  }
+  .rule h4 { margin-bottom: 4px; }
+  .rule p { color: var(--ink-soft); font-size: 16px; margin: 0; }
+
+  /* ---------- ROADMAP ---------- */
+  .phases { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  @media (max-width: 900px) { .phases { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .phases { grid-template-columns: 1fr; } }
+  .phase {
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 26px;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .phase:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
+  .phase .num {
+    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); font-weight: 600; margin-bottom: 10px;
+  }
+  .phase h4 { margin-bottom: 14px; }
+  .phase ul { list-style: none; padding: 0; margin: 0; }
+  .phase li {
+    font-size: 15px; color: var(--ink-soft);
+    padding: 6px 0; display: flex; gap: 10px; align-items: flex-start;
+  }
+  .phase li::before { content: "—"; color: var(--accent); }
+  .phase.active { background: var(--accent-soft); border-color: var(--accent); }
+  .phase.active .num { color: var(--accent); }
+
+  /* ---------- BUSINESS ---------- */
+  .biz-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: start; }
+  @media (max-width: 900px) { .biz-grid { grid-template-columns: 1fr; gap: 28px; } }
+  .biz-card {
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: var(--radius-lg); padding: clamp(28px, 4vw, 40px);
+  }
+  .pricing-tier {
+    padding: 20px 0; border-bottom: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 16px;
+  }
+  .pricing-tier:last-child { border-bottom: 0; }
+  .pricing-tier .t-name { font-weight: 500; font-size: 17px; }
+  .pricing-tier .t-price { font-weight: 600; font-size: 17px; color: var(--accent); flex-shrink: 0; }
+  .pricing-tier .t-desc { font-size: 14px; color: var(--ink-soft); }
+
+  .math-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 12px 0; border-bottom: 1px solid var(--line);
+    font-size: 16px; gap: 16px;
+  }
+  .math-row:last-child { border-bottom: 0; padding-top: 18px; font-weight: 600; font-size: 20px; color: var(--accent); }
+  .math-row .label { color: var(--ink-soft); }
+
+  /* ---------- WHY NOW ---------- */
+  .why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  @media (max-width: 780px) { .why-grid { grid-template-columns: 1fr; } }
+  .why-card {
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 28px;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .why-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
+  .why-card h4 { margin-bottom: 8px; }
+  .why-card p { color: var(--ink-soft); font-size: 16px; margin: 0; }
+
+  /* ---------- CLOSE ---------- */
+  section.close {
+    background: linear-gradient(180deg, var(--accent) 0%, #25493A 100%);
+    color: #fff;
+    padding: clamp(80px, 10vw, 130px) 0;
+    text-align: center;
+  }
+  section.close h2 { color: #fff; max-width: 20ch; margin: 0 auto 20px; }
+  section.close p { color: rgba(255,255,255,0.82); font-size: clamp(17px, 2vw, 21px); max-width: 52ch; margin: 0 auto 36px; }
+  section.close .cta { justify-content: center; display: flex; gap: 12px; flex-wrap: wrap; }
+  section.close .btn-ghost { border-color: rgba(255,255,255,0.3); color: #fff; background: transparent; }
+  section.close .btn-ghost:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+  section.close .btn-primary { background: #fff; color: var(--accent); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+  section.close .btn-primary:hover { background: #F1EDE4; }
+
+  footer {
+    padding: 36px 0; text-align: center;
+    color: var(--ink-soft); font-size: 14px;
+    border-top: 1px solid var(--line);
+    background: var(--bg);
+  }
+
+  /* toast */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(120px);
+    background: var(--ink); color: #fff;
+    padding: 14px 22px; border-radius: 12px;
+    font-size: 15px; font-weight: 500;
+    box-shadow: var(--shadow-3);
+    z-index: 100; transition: transform .35s ease;
+    display: flex; align-items: center; gap: 10px;
+    max-width: calc(100% - 48px);
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast .check-mark { width: 18px; height: 18px; background: var(--green); border-radius: 50%; display: grid; place-items: center; color: #fff; font-size: 11px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="wrap">
+    <a href="#" class="brand">
+      <span class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 20V10L12 4L20 10V20H14V14H10V20H4Z" stroke="#fff" stroke-width="2" stroke-linejoin="round" fill="rgba(255,255,255,0.15)"/>
+        </svg>
+      </span>
+      <span>Quorum</span>
+    </a>
+    <div class="links">
+      <a href="#product">Product</a>
+      <a href="#model">How it works</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#business">Business</a>
+      <a href="#close" class="nav-cta">Get in touch</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow"><span class="pulse"></span> Working name · Quorum</span>
+    <h1>HOA software that feels like it belongs to the neighborhood.</h1>
+    <p class="lede">
+      Most HOA boards run on a Gmail thread, a spreadsheet, and a prayer.
+      Quorum replaces the clutter with one calm place for dues, meetings,
+      announcements, and everything in between — designed for real people,
+      not property managers with IT degrees.
+    </p>
+    <div class="cta">
+      <a href="#product" class="btn btn-primary">See how it works →</a>
+      <a href="#business" class="btn btn-ghost">The business</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">The problem</div>
+      <h2>A $2 billion market stuck in 2008.</h2>
+      <p>Over 358,000 HOAs manage 40% of American homes. Most of them still run on Excel, Google Groups, and paper checks. The software that exists feels like tax prep — built for accountants, not neighbors.</p>
+    </div>
+
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="stat">358k</div>
+        <h4>HOAs in America</h4>
+        <p>Managing 74 million residents and over $100 billion in annual assessments. Almost none love their software.</p>
+      </div>
+      <div class="problem-card">
+        <div class="stat">14</div>
+        <h4>Disconnected tools</h4>
+        <p>A typical mid-size HOA juggles email, Dropbox, QuickBooks, a payment portal, Nextdoor, and a filing cabinet. Nothing talks.</p>
+      </div>
+      <div class="problem-card">
+        <div class="stat">62%</div>
+        <h4>Volunteer-led boards</h4>
+        <p>Most boards are neighbors donating evenings. Current software assumes full-time staff. It punishes the people running it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT TOUR -->
+<section id="product">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">The product</div>
+      <h2>One calm place. Four different people.</h2>
+      <p>Residents, board members, property managers, and vendors all see a version shaped for their job — built on the same quiet foundation underneath. <strong style="color: var(--ink);">Tap anything in the demos below.</strong></p>
+    </div>
+
+    <div class="role-tabs-wrap">
+      <div class="role-tabs" role="tablist">
+        <button class="role-tab active" data-tab="resident">Resident</button>
+        <button class="role-tab" data-tab="board">Board member</button>
+        <button class="role-tab" data-tab="manager">Property manager</button>
+        <button class="role-tab" data-tab="compose">Sending an announcement</button>
+      </div>
+    </div>
+
+    <!-- RESIDENT -->
+    <div class="tour-panel active" id="tab-resident">
+      <div class="tour-layout">
+        <div class="tour-copy">
+          <h3>For Sarah in Unit 42.</h3>
+          <p>She opens the app once a month to pay dues, read the latest notice, or report a broken sprinkler. Everything she needs is on the first screen. No menus, no PDFs, no logins to remember.</p>
+          <ul>
+            <li><span class="dot"></span>Balance and one-tap pay (card or ACH)</li>
+            <li><span class="dot"></span>Announcements pushed by email, SMS, or both</li>
+            <li><span class="dot"></span>Report an issue with a photo in under 30 seconds</li>
+            <li><span class="dot"></span>Access to every document the HOA has ever published</li>
+            <li><span class="dot"></span>RSVP to meetings and vote remotely when it's allowed</li>
+          </ul>
+        </div>
+        <div class="mockup">
+          <div class="mockup-chrome">
+            <div class="window-dots"><span></span><span></span><span></span></div>
+            <div class="url">quorum.app/sunset-ridge</div>
+          </div>
+          <div class="mockup-body">
+            <div class="screen-header">
+              <div>
+                <div class="hi">Good morning, Sarah</div>
+                <div class="sub">Unit 42 · Sunset Ridge HOA</div>
+              </div>
+              <div class="right">
+                <div class="sub">April 16</div>
+              </div>
+            </div>
+
+            <div class="balance-card">
+              <div>
+                <div class="label">Current balance</div>
+                <div class="amount">$0.00</div>
+              </div>
+              <button class="pill-btn ghost" onclick="toggleHistory(this)">View history</button>
+            </div>
+
+            <div class="history-drawer">
+              <div class="history-drawer-inner">
+                <div class="history-row">
+                  <span class="d">April 1 · Monthly dues</span>
+                  <span class="a pos">Paid · $285.00</span>
+                </div>
+                <div class="history-row">
+                  <span class="d">March 1 · Monthly dues</span>
+                  <span class="a pos">Paid · $285.00</span>
+                </div>
+                <div class="history-row">
+                  <span class="d">February 1 · Monthly dues</span>
+                  <span class="a pos">Paid · $285.00</span>
+                </div>
+                <div class="history-row">
+                  <span class="d">January 15 · Assessment</span>
+                  <span class="a pos">Paid · $120.00</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" onclick="expandRow(this)">
+              <div class="icon sage">📣</div>
+              <div class="body">
+                <div class="title">Pool opening this Saturday</div>
+                <div class="meta">Posted 2 days ago · 3 new announcements</div>
+              </div>
+              <div class="action">Read →</div>
+              <div class="expand-body">
+                <p>Good news, neighbors. The pool is officially open for the season starting Saturday at 10am. New pool rules are attached below. See you there.</p>
+              </div>
+            </div>
+            <div class="row" onclick="toggleRsvp(this, event)">
+              <div class="icon">📅</div>
+              <div class="body">
+                <div class="title">Board meeting — Thursday, 7:00 pm</div>
+                <div class="meta">Community clubhouse · 12 neighbors attending</div>
+              </div>
+              <div class="action">RSVP →</div>
+            </div>
+            <div class="row" onclick="expandRow(this)">
+              <div class="icon sage">🔧</div>
+              <div class="body">
+                <div class="title">Your sprinkler report: in progress</div>
+                <div class="meta">Assigned to Green Valley Landscaping · ETA Friday</div>
+              </div>
+              <div class="action">Details →</div>
+              <div class="expand-body">
+                <p>Reported April 12 at 3:40pm. Photo uploaded. Technician dispatched Tuesday. You'll get a text when the work is complete.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOARD -->
+    <div class="tour-panel" id="tab-board">
+      <div class="tour-layout">
+        <div class="tour-copy">
+          <h3>For the board president who has a day job.</h3>
+          <p>Walter is 68, retired accountant, president of the board. He opens Quorum on Sunday morning with coffee and sees exactly what needs him — nothing more, nothing less. No inbox archaeology.</p>
+          <ul>
+            <li><span class="dot"></span>A single "needs me" queue: approvals, votes, questions</li>
+            <li><span class="dot"></span>Collections dashboard at a glance — not a spreadsheet</li>
+            <li><span class="dot"></span>One-click compose for announcements (email + SMS + app)</li>
+            <li><span class="dot"></span>Meeting mode: agenda, minutes, and votes recorded in real time</li>
+            <li><span class="dot"></span>Audit trail of every action — because HOAs get sued</li>
+          </ul>
+        </div>
+        <div class="mockup">
+          <div class="mockup-chrome">
+            <div class="window-dots"><span></span><span></span><span></span></div>
+            <div class="url">quorum.app/sunset-ridge/board</div>
+          </div>
+          <div class="mockup-body">
+            <div class="screen-header">
+              <div>
+                <div class="hi">Sunset Ridge · Board</div>
+                <div class="sub">Welcome back, Walter</div>
+              </div>
+              <div class="right">
+                <div class="sub">April snapshot</div>
+              </div>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi">
+                <div class="label">Collected</div>
+                <div class="num"><span class="count" data-target="87">0</span>%</div>
+                <div class="trend">▲ 4% vs last month</div>
+              </div>
+              <div class="kpi">
+                <div class="label">Delinquent</div>
+                <div class="num"><span class="count" data-target="12">0</span></div>
+                <div class="trend">units — 2 in legal</div>
+              </div>
+              <div class="kpi">
+                <div class="label">Reserve</div>
+                <div class="num">$<span class="count" data-target="184">0</span>k</div>
+                <div class="trend">on target</div>
+              </div>
+            </div>
+
+            <h4 style="margin: 24px 0 4px; font-size: 16px;">Needs you · tap to resolve</h4>
+            <div class="task-row" onclick="this.classList.toggle('done'); showToast('Marked resolved')">
+              <span class="task-pill">Violation</span>
+              <span class="t-title">Trash cans left out — Unit 19 (2nd notice)</span>
+              <span class="t-meta">Review</span>
+            </div>
+            <div class="task-row" onclick="this.classList.toggle('done'); showToast('Marked resolved')">
+              <span class="task-pill">Arch. request</span>
+              <span class="t-title">Fence color change — Unit 7</span>
+              <span class="t-meta">Vote</span>
+            </div>
+            <div class="task-row" onclick="this.classList.toggle('done'); showToast('Vote recorded')">
+              <span class="task-pill sage">Vote open</span>
+              <span class="t-title">Proposed fence-height policy amendment</span>
+              <span class="t-meta">3 of 5 cast</span>
+            </div>
+            <div class="task-row" onclick="this.classList.toggle('done'); showToast('Announcement sent')">
+              <span class="task-pill sage">Announcement</span>
+              <span class="t-title">Draft: Pool opening weekend</span>
+              <span class="t-meta">Review &amp; send</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MANAGER -->
+    <div class="tour-panel" id="tab-manager">
+      <div class="tour-layout">
+        <div class="tour-copy">
+          <h3>For the property manager with 23 HOAs.</h3>
+          <p>Acme Property Management runs 23 associations across the metro. Their portfolio view shows which communities are healthy, which are on fire, and which are one complaint away from a board revolt — all at a glance.</p>
+          <ul>
+            <li><span class="dot"></span>Portfolio-level dashboard across every HOA they manage</li>
+            <li><span class="dot"></span>Drill into any community with one click</li>
+            <li><span class="dot"></span>Unified billing to the management company (our real buyer)</li>
+            <li><span class="dot"></span>White-label option — their brand on the resident app</li>
+            <li><span class="dot"></span>Compliance exports: 1099s, reserve studies, state-specific filings</li>
+          </ul>
+        </div>
+        <div class="mockup">
+          <div class="mockup-chrome">
+            <div class="window-dots"><span></span><span></span><span></span></div>
+            <div class="url">quorum.app/acme-pm/portfolio</div>
+          </div>
+          <div class="mockup-body">
+            <div class="screen-header">
+              <div>
+                <div class="hi">Acme Property Management</div>
+                <div class="sub">23 associations · 1,847 units</div>
+              </div>
+              <div class="right">
+                <div class="sub">This week</div>
+              </div>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi">
+                <div class="label">Portfolio health</div>
+                <div class="num"><span class="count" data-target="92">0</span>%</div>
+                <div class="trend">on track</div>
+              </div>
+              <div class="kpi">
+                <div class="label">Open items</div>
+                <div class="num"><span class="count" data-target="47">0</span></div>
+                <div class="trend">across 9 HOAs</div>
+              </div>
+              <div class="kpi">
+                <div class="label">Collected MTD</div>
+                <div class="num">$<span class="count" data-target="312">0</span>k</div>
+                <div class="trend">▲ 6%</div>
+              </div>
+            </div>
+
+            <h4 style="margin: 24px 0 4px; font-size: 16px;">Communities · tap to drill in</h4>
+            <div class="hoa-row" onclick="showToast('Opening Sunset Ridge…')">
+              <span class="status-dot red"></span>
+              <span class="name">Sunset Ridge</span>
+              <span class="stat">12 delinquent · 4 open</span>
+            </div>
+            <div class="hoa-row" onclick="showToast('Opening Oak Terrace…')">
+              <span class="status-dot amber"></span>
+              <span class="name">Oak Terrace Condos</span>
+              <span class="stat">3 open work orders</span>
+            </div>
+            <div class="hoa-row" onclick="showToast('Opening Pine Grove…')">
+              <span class="status-dot green"></span>
+              <span class="name">Pine Grove Estates</span>
+              <span class="stat">all clear</span>
+            </div>
+            <div class="hoa-row" onclick="showToast('Opening Cedar Creek…')">
+              <span class="status-dot green"></span>
+              <span class="name">Cedar Creek HOA</span>
+              <span class="stat">meeting tonight</span>
+            </div>
+            <div class="hoa-row" onclick="showToast('Opening Lakeside Village…')">
+              <span class="status-dot amber"></span>
+              <span class="name">Lakeside Village</span>
+              <span class="stat">vote · 67% turnout</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPOSE -->
+    <div class="tour-panel" id="tab-compose">
+      <div class="tour-layout">
+        <div class="tour-copy">
+          <h3>The flow we obsess over.</h3>
+          <p>An announcement should take two minutes from blank screen to 400 inboxes. No attachments lost, no residents left out, no guessing who received what.</p>
+          <ul>
+            <li><span class="dot"></span>Audience picker knows every resident and every unit</li>
+            <li><span class="dot"></span>Sends through email, SMS, and in-app — resident chooses</li>
+            <li><span class="dot"></span>Preview on phone and desktop before you hit send</li>
+            <li><span class="dot"></span>Delivery receipts so you know who's actually reading</li>
+            <li><span class="dot"></span>Auto-archived to the community's document library</li>
+          </ul>
+        </div>
+        <div class="mockup">
+          <div class="mockup-chrome">
+            <div class="window-dots"><span></span><span></span><span></span></div>
+            <div class="url">quorum.app/sunset-ridge/announce</div>
+          </div>
+          <div class="mockup-body">
+            <div class="screen-header">
+              <div>
+                <div class="hi">New announcement</div>
+                <div class="sub">Draft · not sent</div>
+              </div>
+              <button class="send-btn" onclick="sendAnnouncement(this)">
+                <span class="spinner"></span>
+                <span class="send-label">Send to 412 →</span>
+              </button>
+            </div>
+
+            <div class="compose-field">
+              <div class="compose-label">Subject</div>
+              <div class="compose-input">Pool opens this Saturday, May 3rd</div>
+            </div>
+
+            <div class="compose-field">
+              <div class="compose-label">Message</div>
+              <div class="compose-input" style="min-height: 90px;">
+                Good news, neighbors. The pool is officially open for the season starting Saturday at 10am. New pool rules are attached. See you there.
+              </div>
+            </div>
+
+            <div class="compose-field">
+              <div class="compose-label">Audience</div>
+              <div>
+                <span class="audience-chip">All residents · 412</span>
+                <span class="audience-chip add" onclick="showToast('Audience filter added')">+ Add filter</span>
+              </div>
+            </div>
+
+            <div class="compose-field">
+              <div class="compose-label">Send through</div>
+              <div class="channel-row">
+                <div class="channel on" onclick="this.classList.toggle('on')"><span class="check"></span><span>Email</span></div>
+                <div class="channel on" onclick="this.classList.toggle('on')"><span class="check"></span><span>SMS</span></div>
+                <div class="channel on" onclick="this.classList.toggle('on')"><span class="check"></span><span>In-app</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TESTIMONIAL / WHAT THEY SAY -->
+<section class="alt">
+  <div class="wrap">
+    <div class="testimonial">
+      <div class="quote-mark">"</div>
+      <blockquote>
+        I've been on our HOA board for eleven years. Every tool we've tried was built for someone who isn't me — a professional manager, an accountant, an IT person. This is the first thing that felt like it was made for a neighbor.
+      </blockquote>
+      <cite><strong>HOA board president</strong> · the voice we're building for</cite>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">What makes it different</div>
+      <h2>The incumbents sell software. We sell a sigh of relief.</h2>
+      <p>AppFolio, Buildium, and HOAst were built for property managers with training budgets. Quorum is built for a retired teacher volunteering on the board of her condo.</p>
+    </div>
+
+    <div class="compare-table">
+      <div class="compare-row head">
+        <div class="feat">What it feels like</div>
+        <div class="compare-cell">Incumbents</div>
+        <div class="compare-cell">Quorum</div>
+      </div>
+      <div class="compare-row">
+        <div class="feat">Designed for</div>
+        <div class="compare-cell them">Property managers</div>
+        <div class="compare-cell us">Residents &amp; boards</div>
+      </div>
+      <div class="compare-row">
+        <div class="feat">Sending an announcement</div>
+        <div class="compare-cell them">~15 minutes</div>
+        <div class="compare-cell us">Under 2 minutes</div>
+      </div>
+      <div class="compare-row">
+        <div class="feat">Resident dues payment</div>
+        <div class="compare-cell them">External portal</div>
+        <div class="compare-cell us">One tap, same app</div>
+      </div>
+      <div class="compare-row">
+        <div class="feat">Mobile experience</div>
+        <div class="compare-cell them">Afterthought</div>
+        <div class="compare-cell us">The default</div>
+      </div>
+      <div class="compare-row">
+        <div class="feat">Meeting minutes &amp; votes</div>
+        <div class="compare-cell them">Paper or PDFs</div>
+        <div class="compare-cell us">Recorded live</div>
+      </div>
+      <div class="compare-row">
+        <div class="feat">Onboarding a new HOA</div>
+        <div class="compare-cell them">Weeks</div>
+        <div class="compare-cell us">A single afternoon</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATA MODEL -->
+<section id="model" class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">How it works</div>
+      <h2>One filing cabinet. One tag on every drawer.</h2>
+      <p>Under the hood, the whole product is a well-organized filing cabinet. Every piece of data — a charge, a meeting, a photo of a broken sprinkler — wears a tag that says which HOA it belongs to. That's how we keep hundreds of communities cleanly separated.</p>
+    </div>
+
+    <div class="data-grid">
+      <div class="cabinet">
+        <div class="level">
+          <div class="level-label">The foundation</div>
+          <div><span class="entity-pill">HOA</span></div>
+        </div>
+        <div class="level">
+          <div class="level-label">The places and the people</div>
+          <div>
+            <span class="entity-pill">Units</span>
+            <span class="entity-pill">People</span>
+          </div>
+        </div>
+        <div class="level">
+          <div class="level-label">The things that happen</div>
+          <div>
+            <span class="entity-pill warm">Charges</span>
+            <span class="entity-pill warm">Announcements</span>
+            <span class="entity-pill warm">Meetings</span>
+            <span class="entity-pill warm">Votes</span>
+            <span class="entity-pill warm">Violations</span>
+            <span class="entity-pill warm">Work orders</span>
+            <span class="entity-pill warm">Documents</span>
+          </div>
+        </div>
+        <div class="level">
+          <div class="level-label">The supporting cast</div>
+          <div>
+            <span class="entity-pill neutral">Vendors</span>
+            <span class="entity-pill neutral">Roles</span>
+            <span class="entity-pill neutral">Audit log</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="rules">
+          <div class="rule">
+            <div class="n">1</div>
+            <div>
+              <h4>Every record belongs to exactly one HOA.</h4>
+              <p>No exceptions. This is how 500 communities share one app without ever seeing each other's data.</p>
+            </div>
+          </div>
+          <div class="rule">
+            <div class="n">2</div>
+            <div>
+              <h4>Units anchor the money and the property.</h4>
+              <p>Dues, violations, and work orders attach to the unit — because people move, but houses don't.</p>
+            </div>
+          </div>
+          <div class="rule">
+            <div class="n">3</div>
+            <div>
+              <h4>People anchor the communication and permissions.</h4>
+              <p>Logins, messages, RSVPs, and votes attach to people — because that's who actually reads, signs, and decides.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">The plan</div>
+      <h2>A year of deliberate shipping.</h2>
+      <p>We don't build everything on day one. We build the sharp wedge first — dues and announcements — and earn the right to expand. Each phase is a product you could sell on its own.</p>
+    </div>
+
+    <div class="phases">
+      <div class="phase active">
+        <div class="num">Phase 1 · months 1–3</div>
+        <h4>The wedge</h4>
+        <ul>
+          <li>Resident directory</li>
+          <li>Dues &amp; payments</li>
+          <li>Announcements</li>
+          <li>Document library</li>
+          <li>Board dashboard</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="num">Phase 2 · months 4–6</div>
+        <h4>Trust &amp; governance</h4>
+        <ul>
+          <li>Meetings + minutes</li>
+          <li>Remote voting</li>
+          <li>Violations workflow</li>
+          <li>Architectural requests</li>
+          <li>Audit log</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="num">Phase 3 · months 7–9</div>
+        <h4>Operations</h4>
+        <ul>
+          <li>Work orders</li>
+          <li>Vendor portal</li>
+          <li>Amenity booking</li>
+          <li>Inspections</li>
+          <li>Resident SMS</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="num">Phase 4 · months 10–12</div>
+        <h4>Scale &amp; sell-through</h4>
+        <ul>
+          <li>Property mgmt portfolios</li>
+          <li>White-label</li>
+          <li>Accounting exports</li>
+          <li>Reserve study tools</li>
+          <li>SOC 2 readiness</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS -->
+<section id="business" class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">The business</div>
+      <h2>Per-door pricing. Sold to the people who buy for twenty HOAs at once.</h2>
+      <p>We don't sell to volunteer boards one at a time. We sell to property management companies, who each represent dozens of associations. One signature, many deployments.</p>
+    </div>
+
+    <div class="biz-grid">
+      <div class="biz-card">
+        <h4 style="margin-bottom: 20px;">Pricing</h4>
+        <div class="pricing-tier">
+          <div>
+            <div class="t-name">Neighborhood</div>
+            <div class="t-desc">Under 50 units · self-managed</div>
+          </div>
+          <div class="t-price">$49/mo</div>
+        </div>
+        <div class="pricing-tier">
+          <div>
+            <div class="t-name">Community</div>
+            <div class="t-desc">50–300 units · most HOAs</div>
+          </div>
+          <div class="t-price">$2/door/mo</div>
+        </div>
+        <div class="pricing-tier">
+          <div>
+            <div class="t-name">Portfolio</div>
+            <div class="t-desc">Property managers · multi-HOA</div>
+          </div>
+          <div class="t-price">$1.50/door/mo</div>
+        </div>
+        <div class="pricing-tier">
+          <div>
+            <div class="t-name">Payments</div>
+            <div class="t-desc">Stripe pass-through + 0.5%</div>
+          </div>
+          <div class="t-price">usage</div>
+        </div>
+      </div>
+
+      <div class="biz-card">
+        <h4 style="margin-bottom: 20px;">The math at 10,000 doors</h4>
+        <div class="math-row">
+          <span class="label">Average per-door revenue / month</span>
+          <span>$1.75</span>
+        </div>
+        <div class="math-row">
+          <span class="label">Doors under management</span>
+          <span>10,000</span>
+        </div>
+        <div class="math-row">
+          <span class="label">Monthly recurring revenue</span>
+          <span>$17,500</span>
+        </div>
+        <div class="math-row">
+          <span class="label">Payments take-rate (est.)</span>
+          <span>+ $8,000</span>
+        </div>
+        <div class="math-row">
+          <span class="label">Annual run-rate</span>
+          <span>$306,000</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY NOW / WHY US -->
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">Why now</div>
+      <h2>The timing is strange, and it's ours.</h2>
+      <p>Four things just became true at the same time. Any one of them would make this easier. All four make it inevitable.</p>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <h4>Boards are turning over.</h4>
+        <p>The generation that ran HOAs on paper is aging out. The new boards expect software that works like Venmo, not like a 1998 tax return.</p>
+      </div>
+      <div class="why-card">
+        <h4>State laws are tightening.</h4>
+        <p>California, Florida, Texas, Arizona, and Colorado have all passed new HOA transparency laws since 2023. Paper-and-email doesn't cut it anymore.</p>
+      </div>
+      <div class="why-card">
+        <h4>Payments got cheap.</h4>
+        <p>Stripe Connect and ACH pull-through mean we can offer banking-grade dues collection without being a bank. The cost curve finally works.</p>
+      </div>
+      <div class="why-card">
+        <h4>Incumbents are bloated.</h4>
+        <p>AppFolio and Buildium were built for property managers, not residents. Their apps feel like accounting software because they are. We're the thing underneath.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSE -->
+<section class="close" id="close">
+  <div class="wrap-narrow">
+    <h2>Let's make HOAs feel human again.</h2>
+    <p>This is a deep, boring, gigantic market where no one has shipped anything that actually feels good. We can be the first.</p>
+    <div class="cta">
+      <a href="mailto:j.sundby@gmail.com?subject=Quorum%20%E2%80%94%20let%27s%20talk" class="btn btn-primary">Let's talk →</a>
+      <a href="#product" class="btn btn-ghost">See the product again</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Quorum · working name · drafted for a conversation with Jason · April 2026
+  </div>
+</footer>
+
+<div class="toast" id="toast">
+  <span class="check-mark">✓</span>
+  <span id="toast-msg">Done</span>
+</div>
+
+<script>
+  // Tabs
+  document.querySelectorAll('.role-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.tab;
+      document.querySelectorAll('.role-tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tour-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + id).classList.add('active');
+    });
+  });
+
+  function toggleHistory(btn) {
+    const card = btn.closest('.balance-card');
+    const drawer = card.nextElementSibling;
+    drawer.classList.toggle('open');
+    btn.textContent = drawer.classList.contains('open') ? 'Hide history' : 'View history';
+  }
+
+  function expandRow(row) {
+    row.classList.toggle('open');
+  }
+
+  function toggleRsvp(row, event) {
+    event.stopPropagation();
+    row.classList.toggle('rsvpd');
+    const action = row.querySelector('.action');
+    if (row.classList.contains('rsvpd')) {
+      action.textContent = "You're in";
+      showToast('RSVP sent');
+    } else {
+      action.textContent = 'RSVP →';
+    }
+  }
+
+  function sendAnnouncement(btn) {
+    if (btn.classList.contains('sent')) return;
+    btn.classList.add('sending');
+    btn.querySelector('.send-label').textContent = 'Sending…';
+    setTimeout(() => {
+      btn.classList.remove('sending');
+      btn.classList.add('sent');
+      btn.querySelector('.send-label').textContent = '✓ Sent to 412';
+      showToast('Announcement sent to 412 residents');
+      setTimeout(() => {
+        btn.classList.remove('sent');
+        btn.querySelector('.send-label').textContent = 'Send to 412 →';
+      }, 3500);
+    }, 1200);
+  }
+
+  let toastTimer;
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toast-msg').textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+  }
+
+  // Count-up
+  const counters = document.querySelectorAll('.count');
+  const animateCount = (el) => {
+    const target = +el.dataset.target;
+    const duration = 900;
+    const start = performance.now();
+    const tick = (now) => {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased);
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting && !e.target.dataset.done) {
+        animateCount(e.target);
+        e.target.dataset.done = '1';
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => io.observe(c));
+</script>
+
+</body>
+</html>
