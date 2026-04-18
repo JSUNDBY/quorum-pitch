@@ -3,29 +3,31 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="theme-color" content="#FAF7F2" />
-<title>Quorum — HOA software that feels like it belongs to the neighborhood</title>
-<meta name="description" content="One calm place for dues, meetings, announcements, and everything in between. Designed for real people, not property managers with IT degrees." />
+<meta name="theme-color" content="#F7F9FB" />
+<title>LibertyOne — Self-Governed. AI-Supported.</title>
+<meta name="description" content="One calm place for dues, meetings, announcements, and everything in between. Self-governed communities, supported by AI. Designed for real people, not property managers with IT degrees." />
 <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
 <style>
   :root {
-    --bg: #FAF7F2;
-    --bg-soft: #F3EEE4;
+    --bg: #F7F9FB;
+    --bg-soft: #EDF1F5;
     --paper: #FFFFFF;
     --ink: #1B1B1B;
     --ink-soft: #555552;
     --ink-softer: #8A8580;
-    --line: #E6E0D4;
-    --line-soft: #EFEBE1;
-    --accent: #2F5D4A;
-    --accent-hover: #254A3B;
-    --accent-soft: #E9EFEA;
-    --accent-softer: #F3F6F3;
-    --warm: #C87E4F;
-    --warm-soft: #F6ECE3;
-    --amber: #D4A64A;
+    --line: #D8DEE5;
+    --line-soft: #E5EAF0;
+    --accent: #3B82F6;
+    --accent-hover: #2563EB;
+    --accent-soft: #EFF6FF;
+    --accent-softer: #F0F7FF;
+    --warm: #F59E0B;
+    --warm-soft: #FEF3C7;
+    --amber: #F59E0B;
     --green: #4F9D6B;
     --red: #C8604F;
+    --navy: #0B1F3B;
+    --navy-hover: #0F2D4F;
     --shadow-1: 0 1px 2px rgba(0,0,0,0.04), 0 2px 8px rgba(30,30,30,0.04);
     --shadow-2: 0 1px 3px rgba(0,0,0,0.04), 0 10px 28px rgba(30,30,30,0.07);
     --shadow-3: 0 2px 6px rgba(0,0,0,0.04), 0 28px 64px rgba(30,30,30,0.10);
@@ -67,7 +69,7 @@
   p { margin: 0 0 1em 0; }
   p.lede { font-size: clamp(18px, 2.3vw, 23px); line-height: 1.55; color: var(--ink-soft); }
 
-  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(47,93,74,0.25); }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(59,130,246,0.25); }
   a:hover { border-bottom-color: var(--accent); }
 
   /* ---------- NAV ---------- */
@@ -77,13 +79,13 @@
     position: sticky; top: 0; z-index: 50;
     backdrop-filter: saturate(160%) blur(14px);
     -webkit-backdrop-filter: saturate(160%) blur(14px);
-    background: rgba(250, 247, 242, 0.88);
+    background: rgba(247, 249, 251, 0.88);
   }
   nav.top .wrap { display: flex; align-items: center; justify-content: space-between; }
   .brand { display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 20px; letter-spacing: -0.01em; color: var(--ink); border: 0; }
   .brand-mark {
     width: 36px; height: 36px; border-radius: 10px;
-    background: var(--accent);
+    background: var(--navy);
     display: grid; place-items: center;
     box-shadow: inset 0 -2px 0 rgba(0,0,0,0.12);
   }
@@ -142,8 +144,8 @@
     min-height: 52px;
     text-align: center;
   }
-  .btn-primary { background: var(--accent); color: #fff; border: 0; box-shadow: 0 1px 0 rgba(0,0,0,0.08), 0 6px 20px rgba(47,93,74,0.18); }
-  .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 1px 0 rgba(0,0,0,0.1), 0 10px 26px rgba(47,93,74,0.25); }
+  .btn-primary { background: var(--accent); color: #fff; border: 0; box-shadow: 0 1px 0 rgba(0,0,0,0.08), 0 6px 20px rgba(59,130,246,0.18); }
+  .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 1px 0 rgba(0,0,0,0.1), 0 10px 26px rgba(59,130,246,0.25); }
   .btn-primary:active { transform: translateY(0); }
   .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
   .btn-ghost:hover { background: #fff; border-color: var(--ink); }
@@ -238,10 +240,10 @@
     padding: 12px 16px;
     border-bottom: 1px solid var(--line);
     display: flex; align-items: center; gap: 10px;
-    background: #FBF9F5;
+    background: #F7F9FB;
   }
   .mockup-chrome .window-dots { display: flex; gap: 6px; }
-  .mockup-chrome .window-dots span { width: 10px; height: 10px; border-radius: 50%; background: #E4DED1; }
+  .mockup-chrome .window-dots span { width: 10px; height: 10px; border-radius: 50%; background: #D8DEE5; }
   .mockup-chrome .url {
     flex: 1; text-align: center; font-size: 13px; color: var(--ink-soft);
     font-family: "SF Mono", ui-monospace, Menlo, monospace;
@@ -259,7 +261,7 @@
   .screen-header .right { text-align: right; flex-shrink: 0; }
 
   .balance-card {
-    background: linear-gradient(135deg, var(--accent-soft) 0%, #E3ECE5 100%);
+    background: linear-gradient(135deg, var(--accent-soft) 0%, #DBEAFE 100%);
     border-radius: var(--radius);
     padding: 24px;
     display: flex; justify-content: space-between; align-items: center;
@@ -279,7 +281,7 @@
   .pill-btn:hover { background: var(--accent-hover); }
   .pill-btn:active { transform: translateY(1px); }
   .pill-btn.ghost { background: #fff; color: var(--ink); border: 1px solid var(--line); }
-  .pill-btn.ghost:hover { border-color: var(--ink); background: #FBF9F5; }
+  .pill-btn.ghost:hover { border-color: var(--ink); background: #F7F9FB; }
 
   .history-drawer {
     max-height: 0; overflow: hidden;
@@ -288,7 +290,7 @@
   }
   .history-drawer.open { max-height: 280px; margin-bottom: 16px; }
   .history-drawer-inner {
-    background: #FBF9F5; border: 1px solid var(--line);
+    background: #F7F9FB; border: 1px solid var(--line);
     border-radius: var(--radius); padding: 18px 22px;
   }
   .history-row {
@@ -343,7 +345,7 @@
   .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 22px; }
   @media (max-width: 520px) { .kpi-grid { grid-template-columns: 1fr; } }
   .kpi {
-    background: #FBF9F5; border: 1px solid var(--line);
+    background: #F7F9FB; border: 1px solid var(--line);
     border-radius: 14px; padding: 18px;
   }
   .kpi .label { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; }
@@ -395,7 +397,7 @@
   .compose-field { margin-bottom: 16px; }
   .compose-label { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; margin-bottom: 8px; }
   .compose-input {
-    background: #FBF9F5; border: 1px solid var(--line);
+    background: #F7F9FB; border: 1px solid var(--line);
     border-radius: 10px; padding: 13px 15px; font-size: 16px; color: var(--ink);
     transition: border-color .15s, background .15s;
   }
@@ -406,7 +408,7 @@
     border-radius: 999px; font-size: 13px; font-weight: 500;
     margin-right: 6px; margin-bottom: 6px;
   }
-  .audience-chip.add { background: #F1EDE4; color: var(--ink-soft); cursor: pointer; }
+  .audience-chip.add { background: #EDF1F5; color: var(--ink-soft); cursor: pointer; }
   .channel-row {
     display: flex; gap: 10px; margin-top: 4px; flex-wrap: wrap;
   }
@@ -485,7 +487,7 @@
   }
   .compare-row:last-child { border-bottom: 0; }
   .compare-row.head {
-    background: #FBF9F5;
+    background: #F7F9FB;
     font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
     font-weight: 600; color: var(--ink-soft);
   }
@@ -522,7 +524,7 @@
   }
   .entity-pill:hover { transform: translateY(-1px); box-shadow: var(--shadow-1); }
   .entity-pill.warm { background: var(--warm-soft); color: var(--warm); }
-  .entity-pill.neutral { background: #F1EDE4; color: var(--ink); }
+  .entity-pill.neutral { background: #EDF1F5; color: var(--ink); }
 
   .rules { margin-top: 8px; }
   .rule {
@@ -601,7 +603,7 @@
 
   /* ---------- CLOSE ---------- */
   section.close {
-    background: linear-gradient(180deg, var(--accent) 0%, #25493A 100%);
+    background: linear-gradient(180deg, var(--navy) 0%, #06111F 100%);
     color: #fff;
     padding: clamp(80px, 10vw, 130px) 0;
     text-align: center;
@@ -611,8 +613,8 @@
   section.close .cta { justify-content: center; display: flex; gap: 12px; flex-wrap: wrap; }
   section.close .btn-ghost { border-color: rgba(255,255,255,0.3); color: #fff; background: transparent; }
   section.close .btn-ghost:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
-  section.close .btn-primary { background: #fff; color: var(--accent); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
-  section.close .btn-primary:hover { background: #F1EDE4; }
+  section.close .btn-primary { background: #fff; color: var(--navy); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+  section.close .btn-primary:hover { background: #EFF6FF; }
 
   footer {
     padding: 36px 0; text-align: center;
@@ -646,14 +648,14 @@
           <path d="M4 20V10L12 4L20 10V20H14V14H10V20H4Z" stroke="#fff" stroke-width="2" stroke-linejoin="round" fill="rgba(255,255,255,0.15)"/>
         </svg>
       </span>
-      <span>Quorum</span>
+      <span>LibertyOne</span>
     </a>
     <div class="links">
       <a href="#product">Product</a>
       <a href="#model">How it works</a>
       <a href="#roadmap">Roadmap</a>
       <a href="#business">Business</a>
-      <a href="./demo/" class="nav-cta">Try the demo →</a>
+      <a href="mailto:j.sundby@gmail.com?subject=LibertyOne%20%E2%80%94%20let%27s%20talk" class="nav-cta">Get in touch</a>
     </div>
   </div>
 </nav>
@@ -661,16 +663,16 @@
 <!-- HERO -->
 <section class="hero">
   <div class="wrap">
-    <span class="eyebrow"><span class="pulse"></span> Working name · Quorum</span>
+    <span class="eyebrow"><span class="pulse"></span> Self-Governed. AI-Supported.</span>
     <h1>HOA software that feels like it belongs to the neighborhood.</h1>
     <p class="lede">
       Most HOA boards run on a Gmail thread, a spreadsheet, and a prayer.
-      Quorum replaces the clutter with one calm place for dues, meetings,
+      LibertyOne replaces the clutter with one calm place for dues, meetings,
       announcements, and everything in between — designed for real people,
       not property managers with IT degrees.
     </p>
     <div class="cta">
-      <a href="./demo/" class="btn btn-primary">Try the live demo →</a>
+      <a href="https://quorum-sand-psi.vercel.app/login" class="btn btn-primary">Try the live demo →</a>
       <a href="#product" class="btn btn-ghost">See how it works</a>
     </div>
   </div>
@@ -740,7 +742,7 @@
         <div class="mockup">
           <div class="mockup-chrome">
             <div class="window-dots"><span></span><span></span><span></span></div>
-            <div class="url">quorum.app/sunset-ridge</div>
+            <div class="url">libertyone.app/sunset-ridge</div>
           </div>
           <div class="mockup-body">
             <div class="screen-header">
@@ -822,7 +824,7 @@
       <div class="tour-layout">
         <div class="tour-copy">
           <h3>For the board president who has a day job.</h3>
-          <p>Walter is 68, retired accountant, president of the board. He opens Quorum on Sunday morning with coffee and sees exactly what needs him — nothing more, nothing less. No inbox archaeology.</p>
+          <p>Walter is 68, retired accountant, president of the board. He opens LibertyOne on Sunday morning with coffee and sees exactly what needs him — nothing more, nothing less. No inbox archaeology.</p>
           <ul>
             <li><span class="dot"></span>A single "needs me" queue: approvals, votes, questions</li>
             <li><span class="dot"></span>Collections dashboard at a glance — not a spreadsheet</li>
@@ -834,7 +836,7 @@
         <div class="mockup">
           <div class="mockup-chrome">
             <div class="window-dots"><span></span><span></span><span></span></div>
-            <div class="url">quorum.app/sunset-ridge/board</div>
+            <div class="url">libertyone.app/sunset-ridge/board</div>
           </div>
           <div class="mockup-body">
             <div class="screen-header">
@@ -908,7 +910,7 @@
         <div class="mockup">
           <div class="mockup-chrome">
             <div class="window-dots"><span></span><span></span><span></span></div>
-            <div class="url">quorum.app/acme-pm/portfolio</div>
+            <div class="url">libertyone.app/acme-pm/portfolio</div>
           </div>
           <div class="mockup-body">
             <div class="screen-header">
@@ -987,7 +989,7 @@
         <div class="mockup">
           <div class="mockup-chrome">
             <div class="window-dots"><span></span><span></span><span></span></div>
-            <div class="url">quorum.app/sunset-ridge/announce</div>
+            <div class="url">libertyone.app/sunset-ridge/announce</div>
           </div>
           <div class="mockup-body">
             <div class="screen-header">
@@ -1056,14 +1058,14 @@
     <div class="section-head">
       <div class="section-eyebrow">What makes it different</div>
       <h2>The incumbents sell software. We sell a sigh of relief.</h2>
-      <p>AppFolio, Buildium, and HOAst were built for property managers with training budgets. Quorum is built for a retired teacher volunteering on the board of her condo.</p>
+      <p>AppFolio, Buildium, and HOAst were built for property managers with training budgets. LibertyOne is built for a retired teacher volunteering on the board of her condo.</p>
     </div>
 
     <div class="compare-table">
       <div class="compare-row head">
         <div class="feat">What it feels like</div>
         <div class="compare-cell">Incumbents</div>
-        <div class="compare-cell">Quorum</div>
+        <div class="compare-cell">LibertyOne</div>
       </div>
       <div class="compare-row">
         <div class="feat">Designed for</div>
@@ -1335,15 +1337,15 @@
     <h2>Let's make HOAs feel human again.</h2>
     <p>This is a deep, boring, gigantic market where no one has shipped anything that actually feels good. We can be the first.</p>
     <div class="cta">
-      <a href="./demo/" class="btn btn-primary">Try the live demo →</a>
-      <a href="mailto:j.sundby@gmail.com?subject=Quorum%20%E2%80%94%20let%27s%20talk" class="btn btn-ghost">Let's talk</a>
+      <a href="https://quorum-sand-psi.vercel.app/login" class="btn btn-primary">Try the live demo →</a>
+      <a href="mailto:j.sundby@gmail.com?subject=LibertyOne%20%E2%80%94%20let%27s%20talk" class="btn btn-ghost">Let's talk</a>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    Quorum · working name · drafted for a conversation with Jason · April 2026 · <a href="./brand.html" style="color: inherit;">Brand kit</a> · <a href="./demo/" style="color: inherit;">Demo</a>
+    LibertyOne · Self-Governed. AI-Supported. · April 2026 · <a href="./brand.html" style="color: inherit;">Brand kit</a> · <a href="./demo/" style="color: inherit;">Demo</a>
   </div>
 </footer>
 

@@ -1,5 +1,5 @@
 /* =====================================================================
-   Quorum — client-side demo
+   LibertyOne — client-side demo
    Single-file vanilla JS SPA. State persists to localStorage.
    Three roles (resident, board, manager) share one data cabinet.
    ===================================================================== */
@@ -106,7 +106,7 @@ const SEED = {
 };
 
 /* ----- state persistence ----- */
-const STORAGE_KEY = "quorum.demo.state.v4";
+const STORAGE_KEY = "libertyone.demo.state.v4";
 let STATE;
 
 function loadState() {
@@ -201,10 +201,10 @@ function renderSplash() {
   return `
     <div class="splash">
       <div class="splash-logo">
-        <img src="../assets/logo-wordmark.svg" alt="Quorum" width="220" height="58" />
+        <img src="../assets/logo-wordmark.svg" alt="LibertyOne" width="220" height="58" />
       </div>
       <h1>Step into the demo. Pick who you are today.</h1>
-      <p>This is a live click-through of the Quorum product. Pay dues, send an announcement, report a broken sprinkler — actions persist across views, so the board president sees what the resident just did.</p>
+      <p>This is a live click-through of the LibertyOne product. Pay dues, send an announcement, report a broken sprinkler — actions persist across views, so the board president sees what the resident just did.</p>
       <div class="role-cards">
         <div class="role-card" onclick="pickRole('resident')">
           <div class="ico">🏠</div>
@@ -229,7 +229,7 @@ function renderSplash() {
         </div>
       </div>
       <div class="splash-link">
-        <a href="../index.html">← Back to the Quorum pitch</a>
+        <a href="../index.html">← Back to the LibertyOne pitch</a>
       </div>
     </div>
   `;
@@ -311,7 +311,7 @@ function shell(inner, opts = {}) {
   const backBtn = back ? `<button class="back-btn" onclick="go('${back}')">← Back</button>` : "";
 
   return `
-    <div class="demo-banner">You're in the Quorum demo — tap anything. State persists across roles. <a href="#" onclick="resetState();return false;">Reset demo</a></div>
+    <div class="demo-banner">You're in the LibertyOne demo — tap anything. State persists across roles. <a href="#" onclick="resetState();return false;">Reset demo</a></div>
     <div class="app-top">
       <div class="wrap">
         ${backBtn}

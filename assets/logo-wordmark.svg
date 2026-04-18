@@ -1,6 +1,11 @@
-<svg width="240" height="64" viewBox="0 0 240 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect x="0" y="0" width="64" height="64" rx="14" fill="#2F5D4A"/>
-  <path d="M14 46V24L32 12L50 24V46H36V32H28V46H14Z" stroke="#FFFFFF" stroke-width="3.5" stroke-linejoin="round" fill="rgba(255,255,255,0.1)"/>
-  <circle cx="44" cy="46" r="5" fill="#C87E4F" stroke="#2F5D4A" stroke-width="2"/>
-  <text x="80" y="42" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', system-ui, sans-serif" font-size="28" font-weight="600" fill="#1B1B1B" letter-spacing="-0.5">Quorum</text>
+<svg width="280" height="64" viewBox="0 0 280 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="64" height="64" rx="14" fill="#0B1F3B"/>
+  <path d="M32 10L20 18V22L32 14L44 22V18L32 10Z" fill="#3B82F6" opacity="0.6"/>
+  <path d="M16 24L32 12L48 24V48H40V34H24V48H16V24Z" stroke="#3B82F6" stroke-width="3.5" stroke-linejoin="round" fill="rgba(59,130,246,0.12)"/>
+  <circle cx="32" cy="28" r="3" fill="#3B82F6"/>
+  <circle cx="24" cy="36" r="2" fill="#3B82F6" opacity="0.5"/>
+  <circle cx="40" cy="36" r="2" fill="#3B82F6" opacity="0.5"/>
+  <line x1="29.5" y1="29.5" x2="25.5" y2="34.5" stroke="#3B82F6" stroke-width="1" opacity="0.4"/>
+  <line x1="34.5" y1="29.5" x2="38.5" y2="34.5" stroke="#3B82F6" stroke-width="1" opacity="0.4"/>
+  <text x="80" y="42" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', system-ui, sans-serif" font-size="28" font-weight="600" fill="#0B1F3B" letter-spacing="-0.5">LibertyOne</text>
 </svg>
